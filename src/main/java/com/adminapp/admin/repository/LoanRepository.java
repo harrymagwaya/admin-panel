@@ -17,4 +17,8 @@ public interface LoanRepository extends JpaRepository<LoanApplications,  Long>{
 
     List <LoanApplications>  findByStatus_of_app(Status_of_app status_of_app);
 
+    long countByStatus_of_app(Status_of_app status_of_app);
+
+    long countById();
+
 }

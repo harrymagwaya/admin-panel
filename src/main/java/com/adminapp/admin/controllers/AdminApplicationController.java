@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class AdminApplicationController {
     
     @Autowired
-    private final AdminApplicationService applicationService;
+    private  AdminApplicationService applicationService;
 
     @GetMapping("/all-applications")
     public ResponseEntity<List<ServiceProviders>> getAllApplications() {
@@ -32,11 +32,10 @@ public class AdminApplicationController {
         return ResponseEntity.ok(all);
     }
 
-    @PutMapping("approve/{userId}")
-    public String ApproveApplicants(@PathVariable Long userId, @RequestBody String entity) {
-        //TODO: process PUT request
-        
-        return entity;
+    @PutMapping("/approve/{userId}")
+    public ResponseEntity<?> ApproveApplicants(@PathVariable Long userId) {
+        applicationService.approve(userId);
+        return ResponseEntity.ok("user approved");
     }
     
 }

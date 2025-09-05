@@ -12,8 +12,8 @@ import com.adminapp.admin.repository.AdminRepository;
 @Service
 public class UserDetailService implements UserDetailsService {
 
-    @Autowired
-    private final AdminRepository adminRepository;
+   @Autowired
+   private AdminRepository adminRepository;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
