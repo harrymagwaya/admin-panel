@@ -6,27 +6,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.adminapp.admin.models.LoanApplications;
-import com.adminapp.admin.models.LoanApplications.Status_of_app;
+import com.adminapp.admin.models.LoanApplications.StatusOfApp;
+
 import com.adminapp.admin.repository.LoanRepository;
 
 @Service
 public class AdminLoanAppService {
     
+    
     @Autowired
     private LoanRepository loanRepository;
 
     public long getPendingLoans(){
-        return loanRepository.countByStatus_of_app(Status_of_app.PENDING);
+        return loanRepository.countByStatusOfApp(StatusOfApp.PENDING);
     }
     public long getApprovedLoans(){
-        return loanRepository.countByStatus_of_app(Status_of_app.APPROVED);
+        return loanRepository.countByStatusOfApp(StatusOfApp.APPROVED);
     }
     public long getRejectedLoans(){
-        return loanRepository.countByStatus_of_app(Status_of_app.REJECTED);
+        return loanRepository.countByStatusOfApp(StatusOfApp.REJECTED);
     }
 
     public long countLoans(){
-        return loanRepository.countById();
+        return loanRepository.count();
     }
 
     public List<LoanApplications> getAllLoans(){
@@ -34,44 +36,43 @@ public class AdminLoanAppService {
     }
 
     public List<LoanApplications> getListPendingLoans(){
-        List <LoanApplications> applicants = loanRepository.findByStatus_of_app(Status_of_app.PENDING);
+        List <LoanApplications> applicants = loanRepository.findByStatusOfApp(StatusOfApp.PENDING);
         return applicants;
     }
     public List<LoanApplications> getListApprovedLoans(){
-        List <LoanApplications> applicants = loanRepository.findByStatus_of_app(Status_of_app.APPROVED);
+        List <LoanApplications> applicants = loanRepository.findByStatusOfApp(StatusOfApp.APPROVED);
         return applicants;
     }
     public List<LoanApplications> getListRejectedLoans(){
-        List <LoanApplications> applicants = loanRepository.findByStatus_of_app(Status_of_app.REJECTED);
+        List <LoanApplications> applicants = loanRepository.findByStatusOfApp(StatusOfApp.REJECTED);
         return applicants;
     }
 
     public void approve(Long loan){
         LoanApplications loans = loanRepository.findById(loan)
                                         .orElseThrow(()-> new RuntimeException("cannot find loan"));
-        if (loans.getStatus_of_app() == Status_of_app.APPROVED) {
+        if (loans.getStatusOfApp() == StatusOfApp.APPROVED) {
             throw new IllegalStateException("loan already approved");
         }
-        else if (loans.getStatus_of_app() == Status_of_app.REJECTED) {
+        else if (loans.getStatusOfApp() == StatusOfApp.REJECTED) {
             throw new IllegalStateException("Loan was already rejected");
         }
         
-        loans.setStatus_of_app(Status_of_app.APPROVED);
+        loans.setStatusOfApp(StatusOfApp.APPROVED);
 
         loanRepository.save(loans);
         
-
     }
+
     public void reject(Long loan){
         LoanApplications loans = loanRepository.findById(loan)
                                         .orElseThrow(()-> new RuntimeException("cannot find loan"));
-        if (loans.getStatus_of_app() == Status_of_app.APPROVED) {
+        if (loans.getStatusOfApp() == StatusOfApp.APPROVED) {
             throw new IllegalStateException("loan already approved");
         }
         
-        loans.setStatus_of_app(Status_of_app.REJECTED);
+        loans.setStatusOfApp(StatusOfApp.REJECTED);
 
         loanRepository.save(loans);  
-
     }
 }

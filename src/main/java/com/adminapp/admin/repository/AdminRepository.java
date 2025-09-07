@@ -10,6 +10,6 @@ import com.adminapp.admin.models.Admin;
 @Repository
 public interface AdminRepository extends JpaRepository<Admin, Long> {
 
-    Optional<Admin>  findByEmail(String email);
+    Optional<Admin>  findByOrganisationEmail(String email);
     
 }

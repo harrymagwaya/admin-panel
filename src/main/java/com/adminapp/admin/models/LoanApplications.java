@@ -14,42 +14,51 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
+import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NonNull;
 
 @Entity
 @Data
-
+@Table(name = "loan_details")
 public class LoanApplications {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "loan_id")
     private Long id;
 
     @NonNull
-    private Long loan_amount;
-
+    @Column(name = "loan_amount")
+    private Long loanAmount;
 
     @NonNull
+    @Column(name = "reason")
     private String reason;
 
     @NonNull
+    @Column(name = "supporting_documents")
     private String suportingDocumentsUrl;
 
     @Enumerated(EnumType.STRING)
     @NonNull
     @Column(name = "status_of_app", updatable = true)
-    private Status_of_app status_of_app;
-
+    private StatusOfApp statusOfApp;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "requester_id")
+    // @Column(name = "")
     private Users requesterId;
 
     private LocalDateTime createdAt;
 
+    @Column(nullable = true)
+    private Long approvedBy;
+
+    @Column(nullable = true)
+    private Long rejectedBy;
+
     @PrePersist
-    public void defaultTime(){
+    public void defaultTime() {
         if (createdAt == null) {
             createdAt = LocalDateTime.now();
         }
@@ -59,11 +68,12 @@ public class LoanApplications {
         //TODO Auto-generated constructor stub
     }
 
-    public enum Status_of_app {
+    public enum StatusOfApp {
         PENDING,
         UNDER_REVIEW,
         APPROVED,
         REJECTED
     }
-    
+
+ 
 }

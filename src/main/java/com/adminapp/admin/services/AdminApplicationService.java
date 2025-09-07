@@ -19,7 +19,7 @@ public class AdminApplicationService {
     
 
     public long getAllPendingCount(){
-        return serviceProviderRepository.countByIsEnabledFalse();
+        return serviceProviderRepository.countByIsEnabled(false);
     }
 
     public List <ServiceProviders> getAllProviders(){
@@ -27,7 +27,7 @@ public class AdminApplicationService {
     }
 
     public List<ServiceProviders> getPendingAccounts(){
-        List <ServiceProviders> applicant = serviceProviderRepository.findByIsEnabledFalseList();
+        List <ServiceProviders> applicant = serviceProviderRepository.findByIsEnabled(false);
         return applicant;
     } 
 

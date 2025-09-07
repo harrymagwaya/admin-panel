@@ -11,6 +11,9 @@ import com.adminapp.admin.models.LoanApplications;
 import com.adminapp.admin.services.AdminLoanAppService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PutMapping;
+
+import org.springframework.web.bind.annotation.PathVariable;
 
 
 @RestController
@@ -31,11 +34,28 @@ public class LoanController {
     }
 
     @GetMapping("/approved")
-    public String getMethodName(@RequestParam String param) {
-        return new String();
+    public ResponseEntity<List<LoanApplications>> getApprovedLoans() {
+        return ResponseEntity.ok(loanAppService.getListApprovedLoans());
     }
-    
-    
-    
-    
+
+    @GetMapping("/rejected")
+    public ResponseEntity<List<LoanApplications>> getRejectetLoan(@RequestParam String param) {
+        return ResponseEntity.ok(loanAppService.getListApprovedLoans());
+    }
+
+    @PutMapping("approve/{loanid}")
+    public ResponseEntity<?> approveLoan(@PathVariable Long loanid) {
+       
+        loanAppService.approve(loanid);
+        return ResponseEntity.ok("approved");
+    }
+
+
+    @PutMapping("reject/{loanid}")
+    public ResponseEntity<?> rejectLoan(@PathVariable Long loanid) {
+       
+        loanAppService.reject(loanid);
+        return ResponseEntity.ok("approved");
+    }
+     
 }
