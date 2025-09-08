@@ -4,6 +4,7 @@ package com.adminapp.admin.models;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -42,9 +43,10 @@ public class LoanApplications {
     @Enumerated(EnumType.STRING)
     @NonNull
     @Column(name = "status_of_app", updatable = true)
+    @Convert(converter = StatusOfAppConverter.class)
     private StatusOfApp statusOfApp;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "requester_id")
     // @Column(name = "")
     private Users requesterId;
@@ -61,18 +63,27 @@ public class LoanApplications {
     public void defaultTime() {
         if (createdAt == null) {
             createdAt = LocalDateTime.now();
+            statusOfApp = StatusOfApp.PENDING;
         }
-    }
+        statusOfApp = StatusOfApp.PENDING;
 
+    }
     public LoanApplications() {
         //TODO Auto-generated constructor stub
     }
+
+
+
 
     public enum StatusOfApp {
         PENDING,
         UNDER_REVIEW,
         APPROVED,
         REJECTED
+    }
+
+    public String getRequesterId() {
+        return requesterId != null ? requesterId.getUserId() : null;
     }
 
  

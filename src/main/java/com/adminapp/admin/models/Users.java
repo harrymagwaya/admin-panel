@@ -24,13 +24,11 @@ public class Users {
     private String phone;
 
     @NonNull
-    private String areaOfInterest;
+    private String areaoOfInterest;
 
     @Column(nullable = true)
     private Boolean hasDisability;
 
-    
-
-
+    Users(){}
 
 }

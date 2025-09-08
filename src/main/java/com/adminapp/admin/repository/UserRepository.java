@@ -11,7 +11,6 @@ import java.util.List;
 @Repository
 public interface UserRepository extends JpaRepository<Users, String>{
    
-    @Query(value = "Select u.user_id, u.area_of_interest, u.has_disability from users u", nativeQuery = true)
-    List <Object[]> getObjectsNative();
-  
+    // @Query(value = "Select u.user_id, u.area_of_interest, u.has_disability from users u", nativeQuery = true)
+    // List <Object[]> getObjectsNative();  
 }

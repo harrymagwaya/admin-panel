@@ -44,4 +44,8 @@ public class ServiceProviders {
     @Column(name = "is_enabled")
     private Boolean isEnabled = false;
 
+    ServiceProviders(){
+        
+    }
+
 }
