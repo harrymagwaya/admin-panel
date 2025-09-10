@@ -32,6 +32,8 @@ public class LoginView  extends LoginOverlay implements AfterNavigationObserver 
         // Prevent the example from stealing focus when browsing the
         // documentation
         setAction("login");
+        setTitle("Woord en Daad connects App");
+        setDescription("Lets Track");
         // setOpened(true);
     }
 
